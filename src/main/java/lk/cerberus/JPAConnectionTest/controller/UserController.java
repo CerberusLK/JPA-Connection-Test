@@ -28,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user){
+    public User createUser(@RequestBody User user) {
         return this.userRepository.save(user);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@RequestBody User user, @PathVariable ("id") long userId) {
+    public User updateUser(@RequestBody User user, @PathVariable("id") long userId) {
         User existingUser = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Selected user of " + userId + " Not found"));
         existingUser.setFirstName(user.getFirstName());
@@ -43,10 +43,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable ("id") long userId){
+    public ResponseEntity<User> deleteUser(@PathVariable("id") long userId) {
         User existingUser = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Selected user of " + userId + " Not found"));
         this.userRepository.delete(existingUser);
-        return  ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
     }
 }
